@@ -1,0 +1,5 @@
+== Introduction to Cisco CLI
+
+Cisco devices typically uses one of four proprietary network operating systems. This software provides communication between the
+resources on the Cisco routers, switches, firewalls, WAPs, and more. This ensures seamless communication and provides a CLI for
+administrators to manage, configure, update, and troubleshoot the device and network. 
