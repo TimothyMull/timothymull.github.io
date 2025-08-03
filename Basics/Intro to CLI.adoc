@@ -1,5 +1,47 @@
-== Introduction to Cisco CLI
+= Introduction to Cisco CLI
 
 Cisco devices typically uses one of four proprietary network operating systems. This software provides communication between the
 resources on the Cisco routers, switches, firewalls, WAPs, and more. This ensures seamless communication and provides a CLI for
-administrators to manage, configure, update, and troubleshoot the device and network. 
+administrators to manage, configure, update, and troubleshoot the device and network. Below is a list of the four types of software found on Cisco devices.
+
+== Cisco OS Types
+[cols="2, 4"]
+|===
+
+| OS
+| Description
+
+| Cisco IOS
+| This is the traditional OS that everyone should be familiar with. It is found on both routers and switches, typically older models.
+  It uses a monolithic architecture, which means all the processes run in a single memory space. While being lightweight and easy to use,
+  it boasts no process seperation and has limited scalabilty.
+
+| Cisco IOS-XE
+| This architecture is found on newer Cisco devices. It uses a Linux daemon and allow process seperation and multithreading. 
+  Despite being slighty more resource intensive than the traditional IOS, IOS-XE provides better faiult tolerance and supports network automation features.
+
+| Cisco IOS-XR
+| This architecture is mainly used by service providers in carrier-grade equipment. This is different from the previous two OSes which are typically found in the enterprise.
+  IOS-XR uses a microkernel architecture running on QNX or Linux. Programs are fully serperated ensuring high reliability and performance.
+  IOS-XR is built for high-throughput traffic environments and supports advanced features such as segment routing.
+
+| Cisco NX-OS
+| This architecture is found in data centers typically on Cisco Nexus switches. Using a Linux-based architecture it is designed for low-latency and reliabilty.
+  It supports features like programmability and virtualization support. Due to its specialized nature it focuses more on a fabric-based approach for data centers rather than a traditional enterprise WAN.
+
+|===
+
+== Cisco CLI Modes
+
+Cisco seperates access to the CLI for security and configuration purposes. Below is a list of the three types of modes.
+
+[cols="2, 3"]
+|===
+
+| User Exec mode
+| This is the mode the router/switch boots into. Administrators can perform basics functions such as monitoring and troubleshooting from a read-only perspective.
+  User Exec mode is protected This mode is denoted by a `>` following the name of the device. Ex. Router> or Switch>.
+
+| Privileged Exec mode
+| This mode on a router/switch is only accessible from User Exec mode using the command `enable`. This mode provides full read access to system files such as the running and startup conifg.
+  Privileged Exec mode is protected by the *enable password*. This mode is denoted by a `#` following the name of the device. Ex. Router# or Switch#. 
