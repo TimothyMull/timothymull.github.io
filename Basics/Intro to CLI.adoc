@@ -31,6 +31,9 @@ administrators to manage, configure, update, and troubleshoot the device and net
 
 |===
 
+:note-caption: pass:[&#128161;]
+NOTE: This documentation will primarily reference Cisco IOS commands
+
 == Cisco CLI Modes
 
 Cisco seperates access to the CLI for security and configuration purposes. Below is a list of the three types of modes.
@@ -40,8 +43,25 @@ Cisco seperates access to the CLI for security and configuration purposes. Below
 
 | User Exec mode
 | This is the mode the router/switch boots into. Administrators can perform basics functions such as monitoring and troubleshooting from a read-only perspective.
-  User Exec mode is protected This mode is denoted by a `>` following the name of the device. Ex. Router> or Switch>.
+  User Exec mode is protected by the `line console` password (if accessing via the console) or the `line vty` password (if accessing via SSH). 
+  This mode is denoted by a `>` following the name of the device. Ex. Router> or Switch>.
 
 | Privileged Exec mode
 | This mode on a router/switch is only accessible from User Exec mode using the command `enable`. This mode provides full read access to system files such as the running and startup conifg.
-  Privileged Exec mode is protected by the *enable password*. This mode is denoted by a `#` following the name of the device. Ex. Router# or Switch#. 
+  Privileged Exec mode is protected by the `enable password` or `enable secret` password. This mode is denoted by a `\#` following the name of the device. Ex. Router# or Switch#. 
+
+| Global Configuration mode
+| This modes on a router/switch is only accessible from Privileged Exec mode using the command `configure terminal`. This modes offers full read/write access to configuration files. 
+  Global Configuration mode is indirectly protected by the password set for Privileged Exec mode. This mode is denoted by the `(config)\#` following the name of the device.
+  Ex. Router(config)# or Switch(config)#. 
+
+|===
+
+== Saving configurations
+When modifying configurations on Cisco devices it is always important to save your changes. *This is not done automatically!* You must manually save your changes in the command-line with
+the following commands. From either *privileged exec mode* or *global configuration mode* you can do `copy running-config startup-config` (which is prefered) or `write memory`.
+//
+Cisco devices have two configuration files. The *startup-config* which is stored in NVRAM and is loaded up when the device next boots.
+And the *running-config* which is stored in RAM and holds changes made during the current session.
+.
+* 
