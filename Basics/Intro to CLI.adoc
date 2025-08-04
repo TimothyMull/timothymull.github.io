@@ -7,9 +7,7 @@ administrators to manage, configure, update, and troubleshoot the device and net
 == Cisco OS Types
 [cols="2, 4"]
 |===
-
-| OS
-| Description
+| OS | Description
 
 | Cisco IOS
 | This is the traditional OS that everyone should be familiar with. It is found on both routers and switches, typically older models.
@@ -60,8 +58,50 @@ Cisco seperates access to the CLI for security and configuration purposes. Below
 == Saving configurations
 When modifying configurations on Cisco devices it is always important to save your changes. *This is not done automatically!* You must manually save your changes in the command-line with
 the following commands. From either *privileged exec mode* or *global configuration mode* you can do `copy running-config startup-config` (which is prefered) or `write memory`.
-//
-Cisco devices have two configuration files. The *startup-config* which is stored in NVRAM and is loaded up when the device next boots.
-And the *running-config* which is stored in RAM and holds changes made during the current session.
-.
-* 
+
+
+Cisco devices have two configuration files:
+
+- The *startup-config* - which is stored in NVRAM and is loaded up when the device next boots.
+- The *running-config* - which is stored in RAM and holds changes made during the current session.
+
+:warning-caption: pass:[&#128680;]
+WARNING: *Ensure that you save your changes using the aforementioned commands or your changes will be discarded!!!*
+
+== Basic Commands
+[cols="1, 1"]
+|===
+| Command
+| Description
+
+| `enable`
+| Allows user to enter into Privilege Exec mode
+
+| `configure terminal`
+| Allows user to enter into Global Configuration mode
+
+| `exit`
+| Move to a previously level in the configuration hierarchy
+
+| `end`
+| Returns to Privilege Exec mode from any configuration mode
+
+| `show startup-config`
+| Displays the startup configuration stored in NVRAM. This file loads on boot until it is modified
+
+| `copy running-config startup-config`
+| Stores changes made in the current session to NVRAM
+
+| `copy startup-config running-config`
+| This can be done when an unwanted change ha
+
+| `hostname`
+| Used to rename the device's default name
+
+| `interface <interface-name>` or `interface range <interface-names>`
+| Used to access `config-if` mode and apply changes directly to an interface
+
+
+
+
+
