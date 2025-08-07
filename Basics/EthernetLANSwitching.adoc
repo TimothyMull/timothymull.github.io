@@ -4,9 +4,10 @@ A Local Area Network (LAN) is a collection of devices within one physical locati
 devices and to the Internet. A business, school, or hospital may have multiple LANs all connected by a router. This allow communication
 outside of the local network to other networks. LANs are found at Layer 2 of the OSI Model and define the concept of segmentation.
 
-In order for businesses to connect hundereds of PCs together they use what are called switches
-Devices cannot communicate outside of the LAN without help from a Layer 3 device such as a router of L3 switch. L2 switches operate at Layer 2
-and can communicate between each other (if there are not VLANs, however more on that later).
+In order for businesses to connect hundereds of PCs and devices together they use network switches. At a basic level a switch connect devices together and enables them to communicate in a LAN.
+
+Devices cannot communicate outside of the LAN without help from a Layer 3 device such as a router. Switches operate at Layer 2
+and can communicate between each other (if there are not VLANs, however more on that later). Devices operating at the same 
 
 == The Data Link Layer
 
@@ -151,3 +152,4 @@ On a switch a MAC address table holds the mapping for physical interfaces on the
 
 
 NOTE: Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
+
