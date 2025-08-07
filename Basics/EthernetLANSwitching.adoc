@@ -3,6 +3,8 @@
 A Local Area Network (LAN) is a collection of devices within one physical location. It allows for shared communication between
 devices and to the Internet. A business, school, or hospital may have multiple LANs all connected by a router. This allow communication
 outside of the local network to other networks. LANs are found at Layer 2 of the OSI Model and define the concept of segmentation.
+
+In order for businesses to connect hundereds of PCs together they use what are called switches
 Devices cannot communicate outside of the LAN without help from a Layer 3 device such as a router of L3 switch. L2 switches operate at Layer 2
 and can communicate between each other (if there are not VLANs, however more on that later).
 
@@ -16,8 +18,7 @@ Layer 2 is like a boundary between Layer 3 and these layers each use a different
 image::websiteimages/ethernetlanswitchingimages/encap.png[]
 link = https://www.geeksforgeeks.org/computer-networks/how-data-encapsulation-de-encapsulation-works/
 #Add in reference title
-[sidebar]
---
+
 In Figure 1-1 we see how data is encapsulated starting at the top left and moving down. Application layer data generally
 comprises the top 3 layers; Application, Presentation, and Session. As network engineers we really only care about the
 first 4 layers; Transport, Network, Data Link, and Physical as this is where a majority of network protocols operate.
@@ -35,9 +36,8 @@ first 4 layers; Transport, Network, Data Link, and Physical as this is where a m
 
 * When frames move to Layer 1 they are converted to *bits* which travel via electrical signals over the transport medium.
 
---
 
- == The Ethernet header
+== The Ethernet header
 
 Lets dive a little deeper into the Layer 2 frame, specifically the Ethernet frame. This frame is meant to standardized
 a format for data being transmitted over the physical Ethernet medium. This standardized format is specified in IEEE 802.3.
@@ -98,6 +98,8 @@ some noteworthy hex values for the EtherType field.
 |0x86DD
 |IPv6
 
+|===
+
 You can find plenty more on Wikipedia.
 
 === Payload
@@ -110,8 +112,6 @@ This field is used to detect errors via a Cyclic Redundancy Check (CRC). The CRC
 and discard frames. In order to determine if a frame has encountered an error the source node calculates a value based on the
 origianl data. When the frame reacehs the destiation node, the received FCS number is checked against the received data.
 When the CRC algortihmn is run, if the number is different, then the frame is discarded. 
-
-|===
 
 == MAC Addresses
 
@@ -148,5 +148,6 @@ Frames that are sent to the unintended recipient are discarded by those devices.
 The intended recipient will receive the frame and (hopefully) reply back. If the switch will receives a reply from that device it will add it's MAC address to it's MAC address table.
 
 On a switch a MAC address table holds the mapping for physical interfaces on the switch and the device's MAC addresses connected to the interfaces. 
+
 
 NOTE: Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
