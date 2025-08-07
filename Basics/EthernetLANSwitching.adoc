@@ -10,7 +10,7 @@ Devices cannot communicate outside of the LAN without help from a Layer 3 device
 and can communicate between each other (if there are not VLANs, however more on that later). Devices operating at the same 
 
 == The Data Link Layer
-:figure-caption!:
+
 
 Layer 2 or the Data Link Layer as found in the OSI Model is where LANs primarily operate in terms of Layer 2 functionality.
 Layer 2 provides node-to-node connectivity between devices like PCs to switch and back to a PC. Within Layer 2 we find the
@@ -18,11 +18,24 @@ definition for how data is to be formatted before being set over the wire. This 
 Layer 2 is like a boundary between Layer 3 and these layers each use a different addressing scheme.
 
 
-.Encapsulation and Deencapsulation process of data
-image::Pictures/Encap.png[Encapsulation, 700, 900]
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/csg25-02-osi-encapsulation.png">
+</p>
+<h4 align="center">Figure 1. OSI Encapsulation Process</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/csg25-02-osi-encapsulation.png[align=center]
+endif::[]
 
 
-In Figure 1-1 we see how data is encapsulated starting at the top left and moving down. Application layer data generally
+
+In Figure 1 we see how data is encapsulated starting at the top left and moving down. Application layer data generally
 comprises the top 3 layers; Application, Presentation, and Session. As network engineers we really only care about the
 first 4 layers; Transport, Network, Data Link, and Physical as this is where a majority of network protocols operate.
 
@@ -120,7 +133,7 @@ When the CRC algortihmn is run, if the number is different, then the frame is di
 
 A Medium Access Control (MAC) address is a 6 byte hexadecimal number used as a unique identifier for a device's Network Interface Card (NIC).
 This physical address is burned into the NIC by the manufactuer and it cannot be changed (usually). A MAC address contains two parts
-the Organizational Unique Identifier (OUI) and the NIC specific identifier. MAC addresses can be Locally Administered Addresses (LAA)
+the Organizational Unique Identifier (OUI) which is the first 3 bytes and the NIC specific identifier which is the last 3 bytes. MAC addresses can be Locally Administered Addresses (LAA)
 or Universally Administered Addresses (UAA).
 
 === Univseral or Local
@@ -151,9 +164,8 @@ Frames that are sent to the unintended recipient are discarded by those devices.
 The intended recipient will receive the frame and (hopefully) reply back. If the switch will receives a reply from that device it will add it's MAC address to it's MAC address table.
 
 On a switch a MAC address table holds the mapping for physical interfaces on the switch and the device's MAC addresses connected to the interfaces. 
+Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
 
+== Address Resolution Protocol (ARP)
 
-NOTE: Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
-
-
-
+ARP is used to discover Layer 2 MAC addresses when only the destiaation IP address is known. This enables the device wanting to send data 
