@@ -10,15 +10,17 @@ Devices cannot communicate outside of the LAN without help from a Layer 3 device
 and can communicate between each other (if there are not VLANs, however more on that later). Devices operating at the same 
 
 == The Data Link Layer
+:figure-caption!:
 
 Layer 2 or the Data Link Layer as found in the OSI Model is where LANs primarily operate in terms of Layer 2 functionality.
 Layer 2 provides node-to-node connectivity between devices like PCs to switch and back to a PC. Within Layer 2 we find the
 definition for how data is to be formatted before being set over the wire. This is also where Layer 1 physical errors can be corrected.
 Layer 2 is like a boundary between Layer 3 and these layers each use a different addressing scheme.
 
-image::../Pictures/encap.png[]
-link = https://www.geeksforgeeks.org/computer-networks/how-data-encapsulation-de-encapsulation-works/
-#Add in reference title
+
+.Encapsulation and Deencapsulation process of data
+image::Pictures/Encap.png[Encapsulation, 700, 900]
+
 
 In Figure 1-1 we see how data is encapsulated starting at the top left and moving down. Application layer data generally
 comprises the top 3 layers; Application, Presentation, and Session. As network engineers we really only care about the
@@ -152,5 +154,6 @@ On a switch a MAC address table holds the mapping for physical interfaces on the
 
 
 NOTE: Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
+
 
 
