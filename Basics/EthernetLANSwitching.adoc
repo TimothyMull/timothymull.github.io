@@ -16,7 +16,7 @@ Layer 2 provides node-to-node connectivity between devices like PCs to switch an
 definition for how data is to be formatted before being set over the wire. This is also where Layer 1 physical errors can be corrected.
 Layer 2 is like a boundary between Layer 3 and these layers each use a different addressing scheme.
 
-image::websiteimages/ethernetlanswitchingimages/encap.png[]
+image::../Pictures/encap.png[]
 link = https://www.geeksforgeeks.org/computer-networks/how-data-encapsulation-de-encapsulation-works/
 #Add in reference title
 
@@ -152,4 +152,5 @@ On a switch a MAC address table holds the mapping for physical interfaces on the
 
 
 NOTE: Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
+
 
