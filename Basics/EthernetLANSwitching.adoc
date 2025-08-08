@@ -154,19 +154,19 @@ If the bit is *0*, the address is universally significant.
 
 === MAC Address Table and Flooding
 
-When a new device connects to a switch and sends data, the switch usually does not know the destiation MAC address. This is because it's not in the switch's MAC address table.
-This is not good. This is resolved through a process called flooding.
-The type of frame the switch receives is called an *unknown unicast frame*. If the destination is in it's MAC address table, then
-the frame is considered a *known-unicast frame*.
+Within a network if one PC wants to talk to another PC traffic will need to go through a switch. Within the switch there is a MAC address table/Content Addressable Memory (CAM) table.
+It stores the mappings between MAC addresses and which physical interface it received the address on. This enables the switch to forward frames associated with a destination MAC address.
+If a MAC address is not found in the switch's MAC address table it is resolved through a process called *flooding*.
 
-Flooding on a switch refers to the switch sending an unknown-unicast frame out of all of it's interfaces, except the one it received the frame on.
-Frames that are sent to the unintended recipient are discarded by those devices.
-The intended recipient will receive the frame and (hopefully) reply back. If the switch will receives a reply from that device it will add it's MAC address to it's MAC address table.
+Flooding on a switch refers to the switch sending an *unknown-unicast frame* out of all of it's interfaces, except the one it received the frame on.
+Frames that are sent to unintended recipients are discarded by those devices. The intended recipient will receive the frame and (hopefully) reply back. 
+Once both MAC addresses are known by the switch, *known-unicast/unicast* frames are sent between hosts.
 
-On a switch a MAC address table holds the mapping for physical interfaces on the switch and the device's MAC addresses connected to the interfaces. 
+Everytime communication occurs between hosts the switch updates the aging timer. If a MAC-to-interface mapping ages out (timer expires), the entry is deleted.
 Cisco switches removes dynamically learned MAC addreses after *5 minutes* of inactivity on the interface.
 
 == Address Resolution Protocol (ARP)
 
 ARP is used to discover Layer 2 MAC addresses when only the destiaation IP address is known. This enables the device wanting to send data to find the destination of
 other devices on the LAN. Being a L2 protoocl, ARP is non-routable. ARP is also a request-response protocol. Something about request and response
+
