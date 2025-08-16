@@ -1,0 +1,14 @@
+= IPv4 Addressing
+
+An IP (Internet Protocol) address is a numerical identifier given to a device on a computer network. They are designed to provide local addressing as well
+as serve as an identifier of the NIC (Network Interface Card). These addresses are built on the foundation of Internet Protocol, a communications
+protocol designed for relaying datagrams across different networks. 
+
+== What is an IPv4 Address?
+
+An IPv4 address was the first speciifcation of the IP address. It is comprised of a 32-bit number that takes the format of dotted-decimal notation or `X.X.X.X`. For example an IPv4 address can look like `192.168.0.1`. The function of IP addresses is to identify the host on the network and to
+provide its location. Being 32-bits in length this limits the number of IP address to 2^32 or 4,294,967,296 addresses. This is much to small for our modern Internet. Since IPv4 exhaustion in the 2010s we have been forced to use IPv6 addresses. However, movement towards IPv6 really began back in the early 2000s. IPv6 which we will discuss in another post offers 2^128 addresses.
+
+== CIDR
+
+To understand how modern IPv4 networks operate we must first go back to 1981. This is when classful addressing was implemented. 
