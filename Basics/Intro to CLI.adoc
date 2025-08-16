@@ -66,7 +66,7 @@ Cisco devices have two configuration files:
 - The *running-config* - which is stored in RAM and holds changes made during the current session.
 
 :warning-caption: pass:[&#128680;]
-WARNING: *Ensure that you save your changes using 'copy running-config startup-config' or your changes will be discarded!!!*
+WARNING: *Ensure that you save your changes using `copy running-config startup-config` or your changes will be discarded!!!*
 
 == Basic Commands
 [cols="1, 4"]
