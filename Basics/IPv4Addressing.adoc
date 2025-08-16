@@ -6,9 +6,25 @@ protocol designed for relaying datagrams across different networks.
 
 == What is an IPv4 Address?
 
-An IPv4 address was the first speciifcation of the IP address. It is comprised of a 32-bit number that takes the format of dotted-decimal notation or `X.X.X.X`. For example an IPv4 address can look like `192.168.0.1`. The function of IP addresses is to identify the host on the network and to
+An IPv4 address was the first speciifcation of the IP address. It is comprised of a 32-bit number that takes the format of dotted-decimal notation or `X.X.X.X`. For example an IPv4 address can look like `192.168.0.1`. Each segment or byte can contain a value of 0-255. The function of IP addresses is to identify the host on the network and to
 provide its location. Being 32-bits in length this limits the number of IP address to 2^32 or 4,294,967,296 addresses. This is much to small for our modern Internet. Since IPv4 exhaustion in the 2010s we have been forced to use IPv6 addresses. However, movement towards IPv6 really began back in the early 2000s. IPv6 which we will discuss in another post offers 2^128 addresses.
 
 == CIDR
 
-To understand how modern IPv4 networks operate we must first go back to 1981. This is when classful addressing was implemented. 
+To understand how modern IPv4 networks operate we must first go back to 1981. This is when classful addressing was implemented. This classful method catergorized
+IPv4 addresses into 5 distict classes; A, B, C, D, and E. The class is denoted by the high-order bits (left-most bits) in the address. Each class corresponds to a distinct ordering of bits and a specific purpose.
+
+[cols="1, 1, 1, 1, 2]
+|===
+
+|Class
+|Network Prefix Size
+|Host Prefix Size
+|Address Range
+|Description
+
+|A
+|8
+|32
+|0.0.0.0 - 127.255.255.255
+
