@@ -66,7 +66,7 @@ Cisco devices have two configuration files:
 - The *running-config* - which is stored in RAM and holds changes made during the current session.
 
 :warning-caption: pass:[&#128680;]
-WARNING: *Ensure that you save your changes using the aforementioned commands or your changes will be discarded!!!*
+WARNING: *Ensure that you save your changes using 'copy running-config startup-config' or your changes will be discarded!!!*
 
 == Basic Commands
 [cols="1, 4"]
@@ -90,10 +90,10 @@ WARNING: *Ensure that you save your changes using the aforementioned commands or
 | Displays the startup configuration stored in NVRAM. This file loads on boot until it is modified
 
 | `copy running-config startup-config`
-| Stores changes made in the current session to NVRAM
+| Copies changes made in the current session to NVRAM
 
 | `copy startup-config running-config`
-| This can be done when an unwanted change ha
+| Will revert changes to the startup configuration. This can be done when an unwanted change have been made
 
 | `hostname`
 | Used to rename the device's default name
