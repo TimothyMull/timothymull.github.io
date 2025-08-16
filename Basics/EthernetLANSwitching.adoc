@@ -167,6 +167,10 @@ Cisco switches removes dynamically learned MAC addreses after *5 minutes* of ina
 
 == Address Resolution Protocol (ARP)
 
-ARP is used to discover Layer 2 MAC addresses when only the destiaation IP address is known. This enables the device wanting to send data to find the destination of
-other devices on the LAN. Being a L2 protoocl, ARP is non-routable. ARP is also a request-response protocol. Something about request and response
+ARP is used to discover Layer 2 MAC addresses when only the destiaation IP address is known. This enables a device to find the destination of
+other devices on the LAN. Because L2 communicates only using MAC addresses, ARP is a critical function for MAC address discovery. It helps switches discover which MAC addresses are on each interface.
+Thus, ARP is defined as a L2 protoocl and is non-routable. 
+
+ARP is a request-response protocol. Something about request and response
+
 
