@@ -171,6 +171,7 @@ ARP is used to discover Layer 2 MAC addresses when only the destiaation IP addre
 other devices on the LAN. Because L2 communicates only using MAC addresses, ARP is a critical function for MAC address discovery. It helps switches discover which MAC addresses are on each interface.
 Thus, ARP is defined as a L2 protoocl and is non-routable. 
 
-ARP is a request-response protocol. Something about request and response
-
+ARP is a request-response protocol. When a client initiates an ARP Request it sends out a broadcast because it does not know the receiver's MAC address. Therefore it is unable to send a unicast frame.
+Since the ARP Request is sent broadcast, nodes not intended to receive the request discard the frame. Once the intended recipient receives the ARP Request it will reply back to the sender with an ARP Reply.
+The ARP Reply is sent unicast back to the sender because it knows the destination MAC address. The EtherType field value for ARP is `0x0806`.
 
