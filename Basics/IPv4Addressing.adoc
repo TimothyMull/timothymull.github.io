@@ -12,19 +12,46 @@ provide its location. Being 32-bits in length this limits the number of IP addre
 == CIDR
 
 To understand how modern IPv4 networks operate we must first go back to 1981. This is when classful addressing was implemented. This classful method catergorized
-IPv4 addresses into 5 distict classes; A, B, C, D, and E. The class is denoted by the high-order bits (left-most bits) in the address. Each class corresponds to a distinct ordering of bits and a specific purpose.
+IPv4 addresses into 5 distict classes; A, B, C, D, and E. The class is denoted by the high-order/most significant bits (left-most bits). Each class corresponds to a distinct ordering of bits and a specific purpose.
 
-[cols="1, 1, 1, 1, 2]
+[cols="1, 1, 1, 1"]
 |===
 
 |Class
 |Network Prefix Size
 |Host Prefix Size
 |Address Range
-|Description
 
 |A
 |8
 |32
 |0.0.0.0 - 127.255.255.255
+
+|B
+|16
+|16
+|128.0.0.0 - 191.255.255.255
+
+|C
+|24
+|8
+|192.0.0.0 - 223.255.255.255
+
+|D and E
+| -
+| -
+| 224.0.0.0 - 255.255.255.255
+
+|===
+
+:note-caption: pass:[&#128161;]
+NOTE: Class D and E are reserved for multicast and experimenetal addressing purposes
+
+== Classless Addressing
+
+In modern networks we have moved away from CIDR in favor of a more versatile addressing scheme. 
+
+
+
+
 
