@@ -11,6 +11,45 @@ A switchport operating as a trunk is designed to carry traffic from multiple VLA
 A switchport operating in access mode is designed to carry traffic from only one VLAN. These are designed to be configured on switchports connected to end hosts such as PCs, printers, and access points.
 A switchport will always send DTP packets even while being in access mode unless the command *`SW(config)#switchport nonegotiate`* is configured.
 
+In order for trunking to be established both sides of the link must agree to form a trunk. If both interfaces are configured with dynamic auto they will not form a trunk. This is because both sides are
+waiting for each other to send a message that they want to form a trunk. The link would function as an access link, only allowing traffic from one VLAN to flow over it. A trunk will be formed if one side
+of the link is configured with dyanmic desirable and the other side is configured with dyanmic desirable, dynamic auto, or statically set as a trunk. Below you can find a compatability matrix.
+
+[cols="1,1,1,1,1"]
+|===
+
+|
+|Dyanimc Auto
+|Dyanimc Desirable
+|Trunk
+|Access
+
+|Dynamic Auto
+|Access
+|Trunk
+|Trunk
+|Access
+
+|Dynamic Desirable
+|Trunk
+|Trunk
+|Trunk
+|Access
+
+|Trunk
+|Trunk
+|Trunk
+|Trunk
+|Limited Connection
+
+|Access
+|Access
+|Access
+|Limited Connection
+|Access
+
+|===
+
 [cols="2,1,1"]
 |===
 |Mode
@@ -36,21 +75,29 @@ A switchport will always send DTP packets even while being in access mode unless
 
 Switchports can be statically or dynamicaly configured with the encapsualtion method used for VLAN trunking. The only encapsualtion method used today is IEEE 802.1q which is an open standard.
 However, it is worth mentioning Cisco's ISL protocol which is not used anymore due to limitations and antiquity. 802.1q tags frames with a 4-byte header inserted right after the source address field.
-Frames that receive a dot1q field are known as "tagged" frames, while frames that do not carry VLAN traffic are "untagged". The 802.1q field contains 2 main field and some subfields. They are as follows:
+Frames that receive a dot1q field are known as "tagged" frames, while frames that do not carry VLAN traffic are "untagged". Importantly, the 802.1q field contains the VID (VLAN ID) field which identifies the VLAN.
 
-[cols="2, 1, 2, 2, 1, 4, 1, 2"]
+[cols="2,1,1"]
+|===
+|Mode
+|Command
+|Description
+
+|ISL Encapsulation
+|*`SW(config)#switchport trunk encapsulation isl`*
+|The trunk is configured to use ISL encapsulation.
+
+|802.1Q Encapsulation
+|*`SW(config)#switchport trunk encapsulation dot1q`*
+|The trunk is configured to use 802.1Q encapsulation.
+
 |===
 
-|Preamble
-|SFD
-|Destiantion MAC Address
-|Source MAC Address
-|IEEE 802.1Q
-|EtherType/Length
-|Payload
-|FCS
+DTP messages are sent every 30 seconds to neighbors to make them aware of their status. Additionally, by default trunks operate in "negotiate" mode for their encapsulation type. Thus, by default
+a trunk that is not statically configured with a trunking encapsulation type will always choose ISL. 
 
-|===
+
+
 
 
 
