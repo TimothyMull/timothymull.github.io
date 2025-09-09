@@ -1,2 +1,60 @@
- = Dynamic Trunking Protocol
+= Dynamic Trunking Protocol
+
+DTP is a Cisco proprietary protocol designed to negotiate the trunking encapsulation and mode of operation between switches. This can allow switches to negotitate the encapsulatino
+as either IEEE 802.1q or ISL (Inter-Switch Link). It also allows switches to negotiate trunking mode or access mode allowing the link to carry traffic from multiple VLANs.
+DTP is enabled by default on switches running IOS such as 3650s and 3850s. On devices such as Nexus switches running NX-OS, DTP is not an option at all. It is general practice
+to disable DTP as it can be seen as a security risk. Take great care when designing and configuring DTP in your network.
+
+== Switchport Operation Modes
+
+A switchport operating as a trunk is designed to carry traffic from multiple VLANs. These can be configured between switches and also routers where traffic from multiple VLANs and locations will traverse.
+A switchport operating in access mode is designed to carry traffic from only one VLAN. These are designed to be configured on switchports connected to end hosts such as PCs, printers, and access points.
+A switchport will always send DTP packets even while being in access mode unless the command *`SW(config)#switchport nonegotiate`* is configured.
+
+[cols="2,1,1"]
+|===
+|Mode
+|Command
+|Description
+
+|Static Trunk
+|*`SW(config)#switchport mode trunk`*
+|This does not envoke any DTP negotation. The switchport will always operate as a trunk. However, despite this it will still send out DTP packets.
+
+|Dynamic Auto
+|*`SW(config)#switchport mode dynamic auto`*
+|This is one of DTP's operating modes. When the switchport is configured in auto mode it will passively wait to receive DTP packets from the far end of the link.
+
+|Dynamic Desirable
+|*`SW(config)#switchport mode dynamic desirable`*
+|This is the other operating mode of DTP. When the switchport is configured in desirable mode it will actively send out DTP negotatiaon packets.
+ It will attempt to form a trunk will the far end of the link. 
+
+|===
+
+== Switchport Encapsulation Modes
+
+Switchports can be statically or dynamicaly configured with the encapsualtion method used for VLAN trunking. The only encapsualtion method used today is IEEE 802.1q which is an open standard.
+However, it is worth mentioning Cisco's ISL protocol which is not used anymore due to limitations and antiquity. 802.1q tags frames with a 4-byte header inserted right after the source address field.
+Frames that receive a dot1q field are known as "tagged" frames, while frames that do not carry VLAN traffic are "untagged". The 802.1q field contains 2 main field and some subfields. They are as follows:
+
+[cols="2, 1, 2, 2, 1, 4, 1, 2"]
+|===
+
+|Preamble
+|SFD
+|Destiantion MAC Address
+|Source MAC Address
+|IEEE 802.1Q
+|EtherType/Length
+|Payload
+|FCS
+
+|===
+
+
+
+
+
+
 
