@@ -98,9 +98,22 @@ a trunk that is not statically configured with a trunking encapsulation type wil
 
 == Show Commands
 
-<insert picture of "sh int trunk | include 802">
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/TrunkMode.jpg">
+</p>
+<h4 align="center">Figure 1. OSI Encapsulation Process</h4>
+++++
+endif::[]
 
-This command presents relevant interfaces that are configured to act as trunk interfaces. They are show on the lefthand side under "Port". 
+ifndef::env-github[]
+[]
+image::Pictures/TrunkMode.jpg[align=center]
+endif::[]
+
+
+This command presents relevant interfaces that are configured to act as trunk interfaces. They are show on the lefthand side under "Port". Only the first section shown at the top is relevant to the discussion for now.
 
 Under the "Mode" you can see what trunking mode that the interface is configured with. The options are "on" for when the interface is configured as static.
 "Desirable" when the inteface is configured to with dynamic desirable mode. "Auto" for when the interface is configured with dynamic auto mode.
@@ -115,6 +128,38 @@ The "Status" will simply show if the interface is "trunking" or "not-trunking". 
 Finally, the "Native VLAN" will show what the native VLAN the interface has been configured with.
 
 
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/OpAdminMode.jpg">
+</p>
+<h4 align="center">Figure 1. Operational and Administrative Modes</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/OpAdminMode.jpg[align=center]
+endif::[]
+
+For this command we will only focus on the first few lines shown at the top. This command specifically shows what has been configured on the interface itsself and how it is operating.
+The first two lines show the interface name and the operational status of the interface. If the interface is enabled or disabled. The next few lines are of great importance to the trunking operation of the interface.
+
+The "Administrative Mode" expresses the administrators intended configuration for the trunk port.
+It is what has actually been configured on the interface itself. In this case the figure shows the mode "trunk", means that the interface has been statically configured to act as a trunk.
+Other options it can show are "static access" for when the interface has been statically configured to act as an access port. It can show "dynamic auto" or "dynamic desirable" for when the interface
+has been configured to use dynamic negotitation of the trunking status as previously discussed.
+
+The "Operational Mode" indicates the actual staus/state of the switchport. Essentially the result of the interaction with the device connected to the port and the result of the dynamic negotiation.
+In this case the figure shows the mode "trunk", meaning that the switchport is operating as a trunk. Other options include "down" which means that either the line interface has been shutdown/disabled.
+It can also show as "trunk", "static access", "dynamic desirable", or "dynamic access". 
+
+Continuing down the "Administrative Trunking Encapsulation" shows what trunking encapsulation the administrator has configured on the switchport. By default it is "negotiate", meaning that DTP will automatically
+negotiate the encapsulation based on received DTP messages. The negotiated encapsulation by default is "ISL" despite not being used in modern networks. The other option that can be shown as seen in the figure is "dot1q"
+for when the interface is using IEEE 802.1Q encapsulation.
+
+Finally, again the "Operational Trunking Encapsulation" shows the encapsulation that has been decided on based on the administrative mode configured. As shown in the figure "dot1q" is shown meaning that the encapsulation being used it IEEE 802.1Q.
+The same thing goes for when ISL is being used liked previsouly stated. Finally, it can show "native" for when the interface acts as an access port and is sending packets untagged in the native VLAN. This is an indication that trunking may not be functioning correctly on the interface.
 
 
 
