@@ -96,6 +96,23 @@ Frames that receive a dot1q field are known as "tagged" frames, while frames tha
 DTP messages are sent every 30 seconds to neighbors to make them aware of their status. Additionally, by default trunks operate in "negotiate" mode for their encapsulation type. Thus, by default
 a trunk that is not statically configured with a trunking encapsulation type will always choose ISL. 
 
+== Show Commands
+
+<insert picture of "sh int trunk | include 802">
+
+This command presents relevant interfaces that are configured to act as trunk interfaces. They are show on the lefthand side under "Port". 
+
+Under the "Mode" you can see what trunking mode that the interface is configured with. The options are "on" for when the interface is configured as static.
+"Desirable" when the inteface is configured to with dynamic desirable mode. "Auto" for when the interface is configured with dynamic auto mode.
+"Nonegotiate" will be shown when the interface has been configured to not send DTP packets.
+
+The "Encapsulation" option will show what method of encapsulation the interface has chosen. It will show "802.1q" if the interface has been statically configured to enccapsulate using IEEE 802.1q.
+If "ISL" is shown that means the interface has been configured to use ISL encapsulation. Finally, if "n-802.1q" is shown that means the interface has negotatited to use IEEE 802.1q encapsulation
+and it was not statically configured.
+
+The "Status" will simply show if the interface is "trunking" or "not-trunking". That's it.
+
+Finally, the "Native VLAN" will show what the native VLAN the interface has been configured with.
 
 
 
