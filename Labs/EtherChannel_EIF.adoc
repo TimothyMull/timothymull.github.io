@@ -44,24 +44,86 @@ To shut down all ports you can use the interface range command to configure mult
 
 ifdef::env-github[]
 ++++
-<p align="center">
-  <img width="800" height="1000" src="Pictures/1IntRange.jpg">
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1IntRange.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/1IntRange.jpg[align=center]
+image::Pictures/1IntRange.jpg[align=left]
 endif::[]
 
 * `SW1(config-if-range)#shut`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1Shut.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1Shut.jpg[align=left]
+endif::[]
+
+To verify that all the interfaces are shut down the following command can be performed:
+
+* `SW1#sh ip int br`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1ShIP.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1ShIP.jpg[align=left]
+endif::[]
 
 All VTP domains must match for the VLAN DB to be propogated from the server to the clients. The command would be:
 
 * `SW1(config)#vtp domain TST`
 
-This should be done on all switches.
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1VTPDomain.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1VTPDomain.jpg[align=left]
+endif::[]
+
+By default the VTP domain is set to null. Once added to the VTP domain the switch generates a Syslog message and sends a VTP messages to other switches to see if they are in the same VTP domain. 
+
+To verify the VTP configuration on the switch the following command can be performed:
+
+* `SW1#sh vtp status`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1VTPStatus.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1VTPStatus.jpg[align=left]
+endif::[]
+
+Step 1 should be done on all switches in the topology.
 
 === Step 2: Configure e0/3 and e0/2 between SW2 and SW3 as trunk links using an industry standard protocol.  SW2 ports should be configured to only respond to PAgP packets and never start the negotiation process.
 
