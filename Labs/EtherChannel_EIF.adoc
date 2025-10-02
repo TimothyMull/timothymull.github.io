@@ -2,9 +2,9 @@
 
 This lab is taken from the CCIE Enterprise Infrastructure Foundation, 2nd Edition book by Narbik Kocharians. All credit is given to him and generally the following explanations in this lab guide.
 His companion/walkthrough article to go alongside the Cisco Press book is quite detailed and provides detailed insight into certain design choices and how the protocols operate.
-This lab guide is mainly a regurgitation of the steps I followed and what I have learned from the reading and configuration.
+This lab guide is mainly a regurgitation of the steps I followed and what I have learned from the reading and configuration. This is in no way my own work. 
 
-= What is EtherChannel
+== What is EtherChannel
 
 EtherChannel is a Cisco proprietary technology designed to negotiate the creation/encapsulation of LAGs between switches using PAgP or LACP. This enables switches to load-balance traffic as well
 as remove any blocking links created by STP. When both interfaces (called a port-channel on the local switch) are bundled into a channel-group (the actual grouping of both port-channels), they
@@ -13,7 +13,7 @@ please visit my other article here <add hyperlink>.
 
 Now lets dive into the lab
 
-= Topology
+== Topology
 
 The following is a look at the topology that will be used for this lab. 
 
@@ -30,3 +30,25 @@ ifndef::env-github[]
 []
 image::Pictures/LabTopology.jpg[align=center]
 endif::[]
+
+=== Step 1: Shut down all ports on all switches and configure the VTP domain "TST"
+
+First, by shutting down all ports this limits the risk of a "VTP Bomb". VTP works by synchronizing the VTP server's VLAN DB to all VTP Client switches. All switches must have the same VTP domain to operate and sync their VLAN DB's together.
+However, the critical feature of VTP to enable all switches to have the same VLAN DB is the revision number of the server. The higher the revision number the more "accurate" that VLAN DB is or supposedly is.
+One key thing to remeber is that if you introduce an old switch into the network and configure the same VTP domain and it is configured as a server, it may have a higher revision number. THis can cause this old switch
+to replace all the other switch's VLAN DB's with incorrect VLAN information. This could destroy network connectivity and result in very angry end users all in one fell swoop. 
+
+To shut down all ports you can use the interface range command to configure multiple interfaces at the same time. For example on SW1 the command would be `SW1(config)#int range e0/0-3,e1/0-3`.
+Then to shut them down simple do `SW1(config-if-range)#shut`. This should be done on all switches.
+
+All VTP domains must match for the VLAN DB to be propogated from the server to the clients. The command would be `SW1(config)#vtp domain TST`. This should be done on all switches.
+
+=== Step 2: Configure e0/3 and e0/2 between SW2 and SW3 as trunk links using an industry standard protocol.  SW2 ports should be configured to only respond to PAgP packets and never start the negotiation process.
+
+
+
+
+
+
+
+
