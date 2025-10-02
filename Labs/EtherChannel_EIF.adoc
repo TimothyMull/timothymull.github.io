@@ -1,0 +1,32 @@
+= EtherChannel Lab Introduction
+
+This lab is taken from the CCIE Enterprise Infrastructure Foundation, 2nd Edition book by Narbik Kocharians. All credit is given to him and generally the following explanations in this lab guide.
+His companion/walkthrough article to go alongside the Cisco Press book is quite detailed and provides detailed insight into certain design choices and how the protocols operate.
+This lab guide is mainly a regurgitation of the steps I followed and what I have learned from the reading and configuration.
+
+= What is EtherChannel
+
+EtherChannel is a Cisco proprietary technology designed to negotiate the creation/encapsulation of LAGs between switches using PAgP or LACP. This enables switches to load-balance traffic as well
+as remove any blocking links created by STP. When both interfaces (called a port-channel on the local switch) are bundled into a channel-group (the actual grouping of both port-channels), they
+appear as a single logical interface on each switch to STP. This also makes configuration of the port-channel and channel-group easier on the network engineer. For a in-depth look into EtherChannel
+please visit my other article here <add hyperlink>.
+
+Now lets dive into the lab
+
+= Topology
+
+The following is a look at the topology that will be used for this lab. 
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/TrunkMode.jpg">
+</p>
+<h4 align="center">Figure 1. OSI Encapsulation Process</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/TrunkMode.jpg[align=center]
+endif::[]
