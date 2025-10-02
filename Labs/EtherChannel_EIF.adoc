@@ -15,7 +15,7 @@ Now lets dive into the lab
 
 == Topology
 
-The following is a look at the topology that will be used for this lab. 
+The following is a look at the topology that will be used for this lab. I am using Cisco Modeling Labs Free to complete this lab.
 
 ifdef::env-github[]
 ++++
@@ -40,7 +40,20 @@ to replace all the other switch's VLAN DB's with incorrect VLAN information. Thi
 
 To shut down all ports you can use the interface range command to configure multiple interfaces at the same time. For example on SW1 the command would be:
 
-* `SW1(config)#int range e0/0-3,e1/0-3`
+* `SW1(config)#int range e0/0-3`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/1IntRange.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1IntRange.jpg[align=center]
+endif::[]
 
 * `SW1(config-if-range)#shut`
 
