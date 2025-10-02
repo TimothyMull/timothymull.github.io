@@ -20,13 +20,13 @@ The following is a look at the topology that will be used for this lab.
 ifdef::env-github[]
 ++++
 <p align="center">
-  <img width="800" height="1000" src="Pictures/TrunkMode.jpg">
+  <img width="800" height="1000" src="Pictures/LabTopology.jpg">
 </p>
-<h4 align="center">Figure 1. OSI Encapsulation Process</h4>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/TrunkMode.jpg[align=center]
+image::Pictures/LabTopology.jpg[align=center]
 endif::[]
