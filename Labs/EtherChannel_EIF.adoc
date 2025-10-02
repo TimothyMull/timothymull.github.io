@@ -38,14 +38,23 @@ However, the critical feature of VTP to enable all switches to have the same VLA
 One key thing to remeber is that if you introduce an old switch into the network and configure the same VTP domain and it is configured as a server, it may have a higher revision number. THis can cause this old switch
 to replace all the other switch's VLAN DB's with incorrect VLAN information. This could destroy network connectivity and result in very angry end users all in one fell swoop. 
 
-To shut down all ports you can use the interface range command to configure multiple interfaces at the same time. For example on SW1 the command would be `SW1(config)#int range e0/0-3,e1/0-3`.
-Then to shut them down simple do `SW1(config-if-range)#shut`. This should be done on all switches.
+To shut down all ports you can use the interface range command to configure multiple interfaces at the same time. For example on SW1 the command would be:
 
-All VTP domains must match for the VLAN DB to be propogated from the server to the clients. The command would be `SW1(config)#vtp domain TST`. This should be done on all switches.
+* `SW1(config)#int range e0/0-3,e1/0-3`
+
+* `SW1(config-if-range)#shut`
+
+All VTP domains must match for the VLAN DB to be propogated from the server to the clients. The command would be:
+
+* `SW1(config)#vtp domain TST`
+
+This should be done on all switches.
 
 === Step 2: Configure e0/3 and e0/2 between SW2 and SW3 as trunk links using an industry standard protocol.  SW2 ports should be configured to only respond to PAgP packets and never start the negotiation process.
 
-
+As mentioned when not using EtherChannel to bundle links together STP will block links between switches that are capable of forming a loop. In the case of two links between switches, one interface will be blocking
+essentially halving the bandwidth. Configuring EtherChannel will allow STP to view both the links as a single physical link and not block one of the links. By bundling these links it also enables the switch to
+load balance traffic across them. This increases the available bandwidth when multiple independant sessions are communicating between the switches. 
 
 
 
