@@ -9,7 +9,13 @@ This lab guide is mainly a regurgitation of the steps I followed and what I have
 EtherChannel is a Cisco proprietary technology designed to negotiate the creation/encapsulation of LAGs between switches using PAgP or LACP. This enables switches to load-balance traffic as well
 as remove any blocking links created by STP. When both interfaces (called a port-channel on the local switch) are bundled into a channel-group (the actual grouping of both port-channels), they
 appear as a single logical interface on each switch to STP. This also makes configuration of the port-channel and channel-group easier on the network engineer. For a in-depth look into EtherChannel
-please visit my other article here <add hyperlink>.
+please visit my other article here
+
+<add hyperlink>.
+
+When not using EtherChannel to bundle links together STP will block links between switches that are capable of forming a loop. In the case of two links between switches, one interface will be blocking
+essentially halving the bandwidth. Configuring EtherChannel will allow STP to view both the links as a single physical link and not block one of the links. By bundling these links it also enables the switch to
+load balance traffic across them. This increases the available bandwidth when multiple independant sessions are communicating between the switches. 
 
 Now lets dive into the lab
 
@@ -42,69 +48,73 @@ To shut down all ports you can use the interface range command to configure mult
 
 * `SW1(config)#int range e0/0-3`
 
-                              ifdef::env-github[]
-                              ++++
-                              <p align="lefy">
-                                <img width="400" height="500" src="Pictures/1IntRange.jpg">
-                              </p>
-                              ++++
-                              endif::[]
-                              
-                              ifndef::env-github[]
-                              []
-                              image::Pictures/1IntRange.jpg[align=left]
-                              endif::[]
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/1IntRange.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1IntRange.jpg[align=left]
+endif::[]
 
 * `SW1(config-if-range)#shut`
 
-                              ifdef::env-github[]
-                              ++++
-                              <p align="lefy">
-                                <img width="800" height="1000" src="Pictures/1Shut.jpg">
-                              </p>
-                              ++++
-                              endif::[]
-                              
-                              ifndef::env-github[]
-                              []
-                              image::Pictures/1Shut.jpg[align=left]
-                              endif::[]
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="800" height="1000" src="Pictures/1Shut.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1Shut.jpg[align=left]
+endif::[]
 
 To verify that all the interfaces are shut down the following command can be performed:
 
 * `SW1#sh ip int br`
 
-                              ifdef::env-github[]
-                              ++++
-                              <p align="lefy">
-                                <img width="800" height="1000" src="Pictures/1ShIP.jpg">
-                              </p>
-                              ++++
-                              endif::[]
-                              
-                              ifndef::env-github[]
-                              []
-                              image::Pictures/1ShIP.jpg[align=left]
-                              endif::[]
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="800" height="1000" src="Pictures/1ShIP.jpg">
+</p>
+++++
+endif::[]
 
-<add explanation>
+ifndef::env-github[]
+[]
+image::Pictures/1ShIP.jpg[align=left]
+endif::[]
 
+[.text-center]
+In order to determine if you have shut down all the interfaces on the device, this command can be referenced. In the case of the interface being down or not, first refer to
+the lefthand side where the interface name is. Then to the right of it you will see the Protocol status and the Status status. The Protocol refers to Layer 2 and Status refers to Layer 1.
+This makes it easy for network engineers to identify is the problem is being caused by a faulty cable or misconfiguration on the interface. The word "Administratively down" means that
+the command `shut` was performed on the interface to disable it.
+ 
 All VTP domains must match for the VLAN DB to be propogated from the server to the clients. The command would be:
 
 * `SW1(config)#vtp domain TST`
 
-                              ifdef::env-github[]
-                              ++++
-                              <p align="lefy">
-                                <img width="800" height="1000" src="Pictures/1VTPDomain.jpg">
-                              </p>
-                              ++++
-                              endif::[]
-                              
-                              ifndef::env-github[]
-                              []
-                              image::Pictures/1VTPDomain.jpg[align=left]
-                              endif::[]
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="800" height="1000" src="Pictures/1VTPDomain.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/1VTPDomain.jpg[align=left]
+endif::[]
 
 By default the VTP domain is set to null. Once added to the VTP domain the switch generates a Syslog message and sends a VTP messages to other switches to see if they are in the same VTP domain. 
 
@@ -112,31 +122,91 @@ To verify the VTP configuration on the switch the following command can be perfo
 
 * `SW1#sh vtp status`
 
-                              ifdef::env-github[]
-                              ++++
-                              <p align="lefy">
-                                <img width="800" height="1000" src="Pictures/1VTPStatus.jpg">
-                              </p>
-                              ++++
-                              endif::[]
-                              
-                              ifndef::env-github[]
-                              []
-                              image::Pictures/1VTPStatus.jpg[align=left]
-                              endif::[]
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="800" height="1000" src="Pictures/1VTPStatus.jpg">
+</p>
+++++
+endif::[]
 
-<add explanation>
+ifndef::env-github[]
+[]
+image::Pictures/1VTPStatus.jpg[align=left]
+endif::[]
+
+This command will show you the VTP Version that is running on the switch. In this case it is version 1. Just under that is the VTP Domain name. Remember that in order for switches to receive VTP Update messages
+and the VLAN DB, they must be in the same VTP domain. The VTP Operating Mode show the VTP Mode of the switch. In this case it is a client and it receives VTP updates, but is not capable of adding/changing VLANs in the domain.
 
 Step 1 should be done on all switches in the topology.
 
 === Step 2: Configure e0/3 and e0/2 between SW2 and SW3 as trunk links using an industry standard protocol.  SW2 ports should be configured to only respond to PAgP packets and never start the negotiation process.
 
-As mentioned when not using EtherChannel to bundle links together STP will block links between switches that are capable of forming a loop. In the case of two links between switches, one interface will be blocking
-essentially halving the bandwidth. Configuring EtherChannel will allow STP to view both the links as a single physical link and not block one of the links. By bundling these links it also enables the switch to
-load balance traffic across them. This increases the available bandwidth when multiple independant sessions are communicating between the switches. 
+It is important that both sides of the channel-group have the same configuration. The same trunk mode, encapsulation, speed, and duplex settings must all match between all the interfaces. This ensures that flapping or loops will not occur.
+If one side is not consistent with the other, then no Etherchannel will be formed and the links will operate independantly. 
 
+Starting on Switch 2 first ensure that the interfaces are in the default state with no configuration. This can be done with the following command:
 
+* `SW2(config)#default int e0/2-3`
 
+Then bring up the e0/2-3 interfaces with the following sequence:
+
+* `SW2(config)#int range e0/2-3`
+* `SW2(config-if-range)#no shut
+
+Configure the Etherchannel and create the port-channel all in the same command:
+
+* `SW2(config-if-range)#channel-group 23 mode auto`
+
+According to the instructions SW2 is supposed to only response to PAgP packets and not start the negotiation process. The keyword "auto" denotes using PAgP negotiation and ports
+configured in auto mode never send out Etherchannel negotiation packets. It will only configure a trunk link if it receives a negotiation packet. The number "23" refers to ID number for the channel-group.
+
+Next, the encapsulation protocol of the trunk link should be set. As per the instructions we should use an industry standard protocol, thus IEEE 802.1Q.
+This can be performed by entering the port-channel configuration mode with the following sequence:
+
+* `SW2(config)#int port-channel 23`
+* `SW2(config-if)#switchport trunk encapsulation dot1q`
+* `SW2(config)#switchport mode trunk`
+
+These commands will set the trunk encapsulation to use 802.1Q and statically define the interface as a trunk.
+
+Next Switch 3 will generally be configured with the same commands, an exception being the channel-group ID and the PAgP mode. This time the PAgP mode is set to desirable to facilitate the initation of an Etherchannel.
+The following commands should be performed on Switch 3:
+
+* `SW3(config)#default int e0/2-3`
+* `SW3(config)#int port-channel 32`
+* `SW3(config-if-range)#no shut`
+* `SW3(config-if-range)#channel-group 32 mode desirable`
+* `SW3(config)#int port-channel 32`
+* `SW3(config-if)#switchport trunk encapsulation dot1q`
+* `SW3(config-if)#switchport mode trunk` 
+
+=== Step 3: Configure e1/0, e1/1 and e0/0, e0/1 on SW2 and SW4 respectively. Set as trunk using industry standard protocol. These interfaces should not negotiate an Etherchannel via PAgP or LACP.
+
+The following indstructions refer us to not use a negotiation method for the creation of the Etherchannel. We can assume the only other logical method of Etherchannel
+creation is using the "on" mode. This can be used on devices who do not support negotiation protocols. Keep in mind the configuration on both switches must match in terms of speed, duplex, trunking mode,
+and encapsulation for the Etherchannel to be created and operational.
+
+Just like the previous configuration it will mostly be the same, an exception being the channel-group ID and negotiation mode.
+The following commands should be performed on SW2:
+
+* `SW2(config)#default int range e1/0-1`
+* `SW2(config)#int range e1/0-1`
+* `SW2(config-if-range)#channel-group 24 mode on`
+* `SW2(config)#int port-channel 24`
+* `SW2(config-if)#switchport trunk encapsualtion dot1q`
+* `SW2(config-if)#switchport mode trunk`
+
+Likewise the following commands can be made on SW4, again there being exceptions:
+
+* `SW4(config)#default int range e0/0-1`
+* `SW4(config)#int range e0/0-1`
+* `SW4(config-if-range)#channel-group 42 mode on`
+* `SW4(config)#int port-channel 42`
+* `SW4(config-if)#switchport trunk encapsualtion dot1q`
+* `SW4(config-if)#switchport mode trunk`
+
+=== Step 4: Ensure that all Etherchannels on SW2 are load-balanced based on the destiation MAC address
 
 
 
