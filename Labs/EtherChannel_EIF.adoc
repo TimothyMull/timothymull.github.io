@@ -672,14 +672,14 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5NoShutSW4.jpg">
+  <img width="400" height="500" src="Pictures/5ShutSW4.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/5NoShutSW4.jpg[align=left]
+image::Pictures/5ShutSW4.jpg[align=left]
 endif::[]
 
 This concludes the lab.
