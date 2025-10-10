@@ -397,14 +397,14 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3ChannelGroup24SW4.jpg">
+  <img width="400" height="500" src="Pictures/3ChannelGroup42SW4.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/3ChannelGroup24SW4.jpg[align=left]
+image::Pictures/3ChannelGroup42SW4.jpg[align=left]
 endif::[]
 
 * `SW4(config)#int port-channel 42`
@@ -414,14 +414,14 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3PortChannel24SW4.jpg">
+  <img width="400" height="500" src="Pictures/3PortChannel42SW4.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/3PortChannel24SW4.jpg[align=left]
+image::Pictures/3PortChannel42SW4.jpg[align=left]
 endif::[]
 
 === Step 4: Ensure that all Etherchannels on SW2 are load-balanced based on the destiation MAC address
