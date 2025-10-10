@@ -459,20 +459,49 @@ IMPORTANT: You must perform `no switchport` on the physical interfaces as well a
 The following command sequence can be performed on SW3:
 
 * `SW3(config)#default int range e1/2-3`
-* `SW3(config)#int port-channel 23`
-* `SW3(config)#no switchport`
+
 
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5NoSwitchportL2.jpg">
+  <img width="400" height="500" src="Pictures/5DefInt.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/5NoSwitchportL2.jpg[align=left]
+image::Pictures/5DefInt.jpg[align=left]
+endif::[]
+
+* `SW3(config)#int port-channel 34`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5PortChannel34.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5PortChannel34.jpg[align=left]
+endif::[]
+
+* `SW3(config)#no switchport`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5NoSwitchport1.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5NoSwitchport1.jpg[align=left]
 endif::[]
 
 This `no switchport` command makes the port-channel Layer 3.
@@ -510,19 +539,19 @@ endif::[]
 
 This `no switchport` command makes the physical interfaces Layer 3. 
 
-* `SW3(config-if)#channel-group 23 mode on`
+* `SW3(config-if)#channel-group 34 mode on`
 
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5ChannelGroup23.jpg">
+  <img width="400" height="500" src="Pictures/5ChannelGroup34.jpg">
 </p>
 ++++
 endif::[]
 
 ifndef::env-github[]
 []
-image::Pictures/5ChannelGroup23.jpg[align=left]
+image::Pictures/5ChannelGroup34.jpg[align=left]
 endif::[]
 
 * `SW3(config)#int range e1/2-3`
@@ -545,18 +574,113 @@ endif::[]
 The same commands can be performed on SW4 with the exception of the channel-group ID being 43 and the IP address being 34.1.1.4/24.
 
 * `SW4(config)#default int range e1/0-1`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5DefIntSW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5DefIntSW4.jpg[align=left]
+endif::[]
+
 * `SW4(config)#int port-channel 43`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5PortChannel43SW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5PortChannel43SW4.jpg[align=left]
+endif::[]
+
 * `SW4(config)#no switchport`
 
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5NoSwitchportSW4.jpg">
+</p>
+++++
+endif::[]
 
+ifndef::env-github[]
+[]
+image::Pictures/5NoSwitchportSW4.jpg[align=left]
+endif::[]
 
 * `SW4(config-if)#ip addr 34.1.1.4 255.255.255.0`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5IPAddrSW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5IPAddrSW4.jpg[align=left]
+endif::[]
+
 * `SW4(config)#int range e1/0-1`
 * `SW4(config-if)#no switchport`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5NoSwitchportL1SW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5NoSwitchportL1SW4.jpg[align=left]
+endif::[]
+
 * `SW4(config-if)#channel-group 42 mode on`
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5ChannelGroup43SW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5ChannelGroup43SW4.jpg[align=left]
+endif::[]
+
 * `SW4(config)#int range e1/0-1`
 * `SW4(config)#shut`
 * `SW4(config)#no shut`
+
+
+ifdef::env-github[]
+++++
+<p align="lefy">
+  <img width="400" height="500" src="Pictures/5NoShutSW4.jpg">
+</p>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/5NoShutSW4.jpg[align=left]
+endif::[]
 
 This concludes the lab.
 
