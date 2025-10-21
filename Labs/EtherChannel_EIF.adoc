@@ -152,7 +152,7 @@ Starting on Switch 2 first ensure that the interfaces are in the default state w
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="800" height="1000" src="Pictures/2DefInt.jpg">
+  <img width="1000" height="1200" src="Pictures/2DefInt.jpg">
 </p>
 ++++
 endif::[]
@@ -170,7 +170,7 @@ Then bring up the e0/2-3 interfaces with the following sequence:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2NoShut.jpg">
+  <img width="300" height="400" src="Pictures/2NoShut.jpg">
 </p>
 ++++
 endif::[]
@@ -187,7 +187,7 @@ Configure the Etherchannel and create the port-channel all in the same command:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2ChannelGroup23.jpg">
+  <img width="500" height="600" src="Pictures/2ChannelGroup23.jpg">
 </p>
 ++++
 endif::[]
@@ -210,7 +210,7 @@ This can be performed by entering the port-channel configuration mode with the f
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2PortChannel23.jpg">
+  <img width="600" height="700" src="Pictures/2PortChannel23.jpg">
 </p>
 ++++
 endif::[]
@@ -230,7 +230,7 @@ The following commands should be performed on Switch 3:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="800" height="1000" src="Pictures/2DefIntSW3.jpg">
+  <img width="500" height="600" src="Pictures/2DefIntSW3.jpg">
 </p>
 ++++
 endif::[]
@@ -246,7 +246,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2NoShutSW3.jpg">
+  <img width="500" height="600" src="Pictures/2NoShutSW3.jpg">
 </p>
 ++++
 endif::[]
@@ -261,7 +261,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2ChannelGroup32SW3.jpg">
+  <img width="600" height="700" src="Pictures/2ChannelGroup32SW3.jpg">
 </p>
 ++++
 endif::[]
@@ -278,7 +278,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/2PortChannel32SW3.jpg">
+  <img width="600" height="700" src="Pictures/2PortChannel32SW3.jpg">
 </p>
 ++++
 endif::[]
@@ -302,7 +302,7 @@ The following commands should be performed on SW2:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3DefInt.jpg">
+  <img width="500" height="600" src="Pictures/3DefInt.jpg">
 </p>
 ++++
 endif::[]
@@ -318,7 +318,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3NoShut.jpg">
+  <img width="500" height="600" src="Pictures/3NoShut.jpg">
 </p>
 ++++
 endif::[]
@@ -333,7 +333,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3ChannelGroup24.jpg">
+  <img width="600" height="700" src="Pictures/3ChannelGroup24.jpg">
 </p>
 ++++
 endif::[]
@@ -350,7 +350,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3PortChannel24.jpg">
+  <img width="600" height="700" src="Pictures/3PortChannel24.jpg">
 </p>
 ++++
 endif::[]
@@ -367,7 +367,7 @@ Likewise the following commands can be made on SW4, again there being exceptions
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3DefIntSW4.jpg">
+  <img width="1200" height="1300" src="Pictures/3DefIntSW4.jpg">
 </p>
 ++++
 endif::[]
@@ -382,7 +382,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3NoShutSW4.jpg">
+  <img width="300" height="300" src="Pictures/3NoShutSW4.jpg">
 </p>
 ++++
 endif::[]
@@ -397,7 +397,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3ChannelGroup42SW4.jpg">
+  <img width="500" height="600" src="Pictures/3ChannelGroup42SW4.jpg">
 </p>
 ++++
 endif::[]
@@ -414,7 +414,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/3PortChannel42SW4.jpg">
+  <img width="700" height="800" src="Pictures/3PortChannel42SW4.jpg">
 </p>
 ++++
 endif::[]
@@ -436,7 +436,7 @@ The following command can be configued on SW2 to set the load-balancing method:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/4LoadBal.jpg">
+  <img width="600" height="700" src="Pictures/4LoadBal.jpg">
 </p>
 ++++
 endif::[]
@@ -464,7 +464,7 @@ The following command sequence can be performed on SW3:
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5DefInt.jpg">
+  <img width="1100" height="1200" src="Pictures/5DefInt.jpg">
 </p>
 ++++
 endif::[]
@@ -511,7 +511,7 @@ This `no switchport` command makes the port-channel Layer 3.
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5IPAddr.jpg">
+  <img width="600" height="700" src="Pictures/5IPAddr.jpg">
 </p>
 ++++
 endif::[]
@@ -527,7 +527,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5NoSwitchportL3.jpg">
+  <img width="500" height="600" src="Pictures/5NoSwitchportL3.jpg">
 </p>
 ++++
 endif::[]
@@ -544,7 +544,7 @@ This `no switchport` command makes the physical interfaces Layer 3.
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5ChannelGroup34.jpg">
+  <img width="600" height="700" src="Pictures/5ChannelGroup34.jpg">
 </p>
 ++++
 endif::[]
@@ -561,7 +561,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5Shut.jpg">
+  <img width="1000" height="1100" src="Pictures/5Shut.jpg">
 </p>
 ++++
 endif::[]
@@ -578,7 +578,7 @@ The same commands can be performed on SW4 with the exception of the channel-grou
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5DefIntSW4.jpg">
+  <img width="500" height="600" src="Pictures/5DefIntSW4.jpg">
 </p>
 ++++
 endif::[]
@@ -623,7 +623,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5IPAddrSW4.jpg">
+  <img width="500" height="600" src="Pictures/5IPAddrSW4.jpg">
 </p>
 ++++
 endif::[]
@@ -639,7 +639,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5NoSwitchportL1SW4.jpg">
+  <img width="500" height="600" src="Pictures/5NoSwitchportL1SW4.jpg">
 </p>
 ++++
 endif::[]
@@ -654,7 +654,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5ChannelGroup43SW4.jpg">
+  <img width="600" height="700" src="Pictures/5ChannelGroup43SW4.jpg">
 </p>
 ++++
 endif::[]
@@ -672,7 +672,7 @@ endif::[]
 ifdef::env-github[]
 ++++
 <p align="lefy">
-  <img width="400" height="500" src="Pictures/5ShutSW4.jpg">
+  <img width="1100" height="1200" src="Pictures/5ShutSW4.jpg">
 </p>
 ++++
 endif::[]
