@@ -1,0 +1,20 @@
+= EtherChannel
+
+EtherChannel (or LAG) is a link-aggregation protocol proprietary to Cisco switches and routers that bundles physical interfaces under a single logical interface. It is designed to increase the bandwidth between devices,
+provide failover capability, and prevent STP from blocking links. Defined in part under IEEE 802.3ad, it should not be conflated that EtherChannel and IEEE 802.3ad are one in the same.
+EtherChannel is Cisco-proprietary and supports both PAgP and LACP negotiation, while 802.3ad only supports LACP negotiation. Once the aggregation and trunking protocols have been decided on
+a hash algorithm will be used to decided on how to load-balance traffic across the port-channel. 
+
+As mentioned there are two negotiation protocols that enable the dynamic creation of an EtherChannel. One being PaGP and the other being LACP.
+There is also the option to create a static EtherChannel, but first let's first discuss PaGP.
+
+== PaGP
+
+Port Aggregation Protocol (PAgP) is a Cisco proprietary protocol that allows for the bundling of up to 8 links in a channel-group. There are two modes to configure PAgP; Auto and Desirable.
+Mode "desirable" actively sends PAgP messages in order to negotiate an EtherChannel. After negotiations are complete, keepalive messages are sent every 30 seconds to multicast address (0100.0ccc.ccc).
+
+=== PAgP Timers
+
+We will now look at the inner workings of PAgP and the timers it uses to negotiate and send messages. There are five timers that PAgP utilizes.
+
+==== Hello Timer (pagp-h)
