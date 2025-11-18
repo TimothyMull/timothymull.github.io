@@ -16,5 +16,32 @@ Mode "desirable" actively sends PAgP messages in order to negotiate an EtherChan
 === PAgP Timers
 
 We will now look at the inner workings of PAgP and the timers it uses to negotiate and send messages. There are five timers that PAgP utilizes.
+These timers are taken from the command `debug pagp misc`, which shows debug messages for PAgP when it is operating on the switch.
 
 ==== Hello Timer (pagp-h)
+
+The hello timer controls how often hello messages are sent between each of the physical interfaces that are configured in the EtherChannel.
+
+
+By default switch interfaces are configured to operate in non-silent mode, meaning they expect to receive a PAgP message from their partner. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
