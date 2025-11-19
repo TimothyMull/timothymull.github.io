@@ -17,13 +17,40 @@ Mode "desirable" actively sends PAgP messages in order to negotiate an EtherChan
 
 We will now look at the inner workings of PAgP and the timers it uses to negotiate and send messages. There are five timers that PAgP utilizes.
 These timers are taken from the command `debug pagp misc`, which shows debug messages for PAgP when it is operating on the switch.
+These timers can help pinpoint timing and operational issues between interfaces of the EtherChannel.
 
-==== Hello Timer (pagp-h)
+==== Hello Timer (pagp_h)
 
 The hello timer controls how often hello messages are sent between each of the physical interfaces that are configured in the EtherChannel.
+A hello message can be sent using a Fast Hello (sent every 1s) or a Slow Hello (sent every 30s). By default hello messages are sent intially using
+a Fast Hello and then sent the rest of the time using a Slow Hello.
 
+NOTE: This timer cannot be modified when using PAgP. If using LACP it can be changed to Fast Hello using `lacp rate fast`.
 
-By default switch interfaces are configured to operate in non-silent mode, meaning they expect to receive a PAgP message from their partner. 
+=== Switching Timer (pagp_s)
+
+This timer controls how long Fast Hellos are sent and it is 8 seconds by default for PAgP. Thus when a desirable interface is sent and
+begins sending Fast Hellos, it will send them for 8 seconds. 
+
+=== Internal Timer (pagp_i)
+
+This debug message outputs information related to the PAgP State Machine and internal timers such as hello message, timeouts, and channel compatability.
+It is in essence a tag for timed PAgP events.
+For example an output for a hello message being sent would look like `pagp_i: sending hello`. You can refernce the timestamps to see if the hello
+messages are Fast Hellos or Slow Hellos. 
+
+=== Quit Timer (pagp_q)
+
+This timer refers to the interval to wait after ceasing to receive PAgP messages before halting transmission. This counter is reset when a PAgP message is received.
+This timer is important in order to prevent erroneous sending of PAgP messages to a dead endpoint in order to preserve CPU cycles for other processes.
+This is only used for interfaces using auto mode and when it expires the interface will begin passively waiting for PAgP messages. 
+
+=== Partner Timer (pagp_p)
+
+The partner timer acts as a sort of dead timer. It refers to the interval in which EtherChannel information is removed from the internal EtherChannel table.
+This does not refer to how long the port-channel waits to tear down the connection after not receiving PAgP messages. At this point the EtherChannel is already torn down.
+THe value of this varies; it is generally (3.5s * hello timer). Thus, for Slow Hellos it is 105s and for Fast Hellos it is 3.5s. Again, after this time passes
+partner information is removed from the internal EtherChannel table. 
 
 
 
