@@ -11,8 +11,63 @@ There is also the option to create a static EtherChannel, but first let's first 
 == PaGP
 
 Port Aggregation Protocol (PAgP) is a Cisco proprietary protocol that allows for the bundling of up to 8 links in a channel-group. There are two modes to configure PAgP; Auto and Desirable.
-Mode "desirable" actively sends PAgP messages in order to negotiate an EtherChannel. After negotiations are complete, keepalive messages are sent every 30 seconds to multicast address (0100.0ccc.ccc).
+Mode "desirable" actively sends PAgP messages in order to negotiate an EtherChannel. It can be set with the command `SW(config-if)#channel-group <virtual interface #> mode desirable"`.
+This command will create an EtherChannel if the virtual interface number is not already assigned to an EtherChannel. Mode "auto" will wait to start sending PAgP messages until it has
+received a PAgP message from its neighbor. It can be set with the command `SW(config-if)#channel-group <virtual interface #> mode auto"`.
+After negotiations are complete, keepalive messages are sent every 30 seconds to multicast address (0100.0ccc.ccc).
 
+== LACP
+
+Link Aggregation Control Protocol (LACP) is an IEEE standard protocol. Originally defined under 802.3ad its latest revision is under 802.1AX-2020. Its goal is similar to PAgP in which it aggregates links to form a single logical bundle.
+Unlike PAgP, LACP is not bound to only Cisco devices and can used between devices from different vendors. There are also two modes to configure LACP; Active and Passive. Mode "active" as the name implies, will actively send LACP messages
+to the neighboring switch in order to form a EtherChannel. It can be set with the command `SW(config-if)#channel-group <virtual interface #> mode active"`. Mode "passive" on the other hand will not attempt to send any LACP messages until
+it has received an LACP message from its neighbor. It can be set with the command `SW(config-if)#channel-group <virtual interface #> mode passive"`. LACPDUs are sent every 30s after the EtherChannel has been established. They are
+sent to MAC address (0180.c200.0002). 
+
+== Load Balancing
+
+When multiple links are combined into an EtherChannel and traffic is forwarded across them a hashing alogrtihm is used to determine which link the data will take. There are a variety of hashing alorithms to choose from and certain ones will
+determine how traffic is load-balanced. Under normal circumstances the transmission of data, called a flow in this case, will pick an interface to use based on the hash alogirthm. *It will use the same interface for the entire conversation*.
+For example, if the load-balancing option being used is based on the source MAC address and SRV1 is transmitting data to PCs, that traffic will always take the same link becuase the source MAC address never changes. Let's dive into the details of why this happens.
+
+=== Hash Algortihm
+
+On older switches the hash algorithm used to be 3 bits, however it is hypothesized that on newer switches it has been changed to 8 bits. For simplicity sake I will use the 3-bit hash algortihm, but know 8-bit is likely the modern standard.
+Thus, 8 values, 0-7 are chosen and assigned to the active interfaces in the channel-group. If there are 8 interfaces active in the EtherChannel, then a value of 1 is assigned to each interface. Then, the hash algortim will choose a value for the flow
+and send it through the corresponding interface. Here is a table that visually represents the assigned values based on the number of active interfaces in the EtherChannel.
+
+[cols="1,1"]
+|===
+| # of ports in EtherChannel
+| Load Balancing
+
+| 8
+| 1:1:1:1:1:1:1:1
+
+| 7
+| 2:1:1:1:1:1:1
+
+| 6
+| 2:2:1:1:1:1
+
+| 5
+| 2:2:2:1:1
+
+| 4
+| 2:2:2:2
+
+| 3
+| 3:3:2
+
+| 2
+| 4:4
+
+|===
+
+For example, if there are 4 links in the EtherChannel each interface is assinged two values. The first interface is assinged values 0 and 1. The second interface 2 and 3. The third interface 4 and 5, and so on.
+So if the hash algortihm computes a value of 3 for a certain flow, based on the load-balancing method chosen, the second interface might only be used for that specific data transmission.
+
+== Miscellaneous
 === PAgP Timers
 
 We will now look at the inner workings of PAgP and the timers it uses to negotiate and send messages. There are five timers that PAgP utilizes.
