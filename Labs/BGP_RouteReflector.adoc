@@ -1,0 +1,9 @@
+= BGP Route Reflectors
+
+A Route Reflector (RR) is used in BGP to reflect/retransmit routes learned from an iBGP peer to other iBGP peers. This is used to as a "workaround" to the inherent functionality
+of BGP in which iBGP routers cannot transmit routes learned from one iBGP peer to other iBGP peers. Thus, this avoids all iBGP routers needing to be peered with all other iBGP routers.
+This also avoids routing loops and blackholing isnide an Autonomous System (AS). 
+
+In order to prevent routing loops inside an AS, iBGP routes cannot be re-advertised to iBGP peers. This is because of a fundamental mechanism of iBGP in which the next-hop
+attribute is not changed when advertising to other iBGP peers. BGP is only deisgned to carry policy and reachability data, not forwarding paths. In order to work around this
+and avoid a full mesh scenario which would cause all sorts of issues, route reflectors are used.
