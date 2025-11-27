@@ -22,14 +22,70 @@ there would be 10 active iBGP sessions.
 
 NOTE: All routers have already been configured with IP addresses on the appropriate interfaces.
 
-=== 
+=== Step 1: Enable OSPF on R1, R2, R3, and R4 in AS 65001
 
+OSPF is going to act as the IGP for AS 65001 providing connectivity between the routers. This is important for BGP functionality,
+as that relies on existing TCP connections between the routers. To enable OSPF the command would be:
 
+* `Rx(config)#router ospf 1`
 
+In order to establish OSPF adjacency between the routers the commands will be:
 
+R1
+* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
 
+R2
+* `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
 
+R3
+* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
 
+R4
+* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
+
+=== Step 2: Verify OSPF Adjacencies and Connectivity
+
+=== Step 3: Configure BGP for AS 65001 and AS 65003 ( or 65002)
+
+For R1, R2, R3, and R4 configure the command:
+
+* `Rx(config)#router bgp 65001`
+
+For R5 the command would be:
+
+* `R5(config)#router bgp 65003`
+
+Now we'll configure the iBGP sessions for AS 65001. The commands will be:
+
+R1
+* `R1(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R1(router-config)#neighbor 192.168.0.3 remote-as 65001`
+
+R2
+* `R2(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R2(router-config)#neighbor 192.168.0.3 remote-as 65001`
+
+R3
+* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
+
+R4
+* `R4(router-config)#neighbor 192.168.0.3 remote-as 65001`
+
+Now we'll configure the eBGP session between R4 and R5. The command will be:
+
+R4
+* `R1(router-config)#neighbor 192.168.0.3 remote-as 65003`
+
+R5
+* `R1(router-config)#neighbor 192.168.0.3 remote-as 65003`
+
+=== Step 4:Verify the BGP Adjacencies
 
 
 
