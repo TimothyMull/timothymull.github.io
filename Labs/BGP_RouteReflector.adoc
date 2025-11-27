@@ -1,9 +1,40 @@
-= BGP Route Reflectors
+= BGP Route Reflector Lab Introduction
 
-A Route Reflector (RR) is used in BGP to reflect/retransmit routes learned from an iBGP peer to other iBGP peers. This is used to as a "workaround" to the inherent functionality
-of BGP in which iBGP routers cannot transmit routes learned from one iBGP peer to other iBGP peers. Thus, this avoids all iBGP routers needing to be peered with all other iBGP routers.
-This also avoids routing loops and blackholing isnide an Autonomous System (AS). 
+This lab was created by me to help with my understanding of how BGP Route Reflectors (RR) work and operate. This lab will look similar to my other BGP lab
+where I initially learned about BGP. It was easier to copy the topology than create a new one. Below is a short description about route reflectors and why they are used.
+
+== The Need for Route Reflectors
+
+A Route Reflector (RR) is used in BGP to reflect/retransmit routes learned from one iBGP peer to other iBGP peers. This is used to as a "workaround" to the inherent functionality
+of BGP in which iBGP routers cannot transmit routes learned from one iBGP peer to other iBGP peers. Thus, this avoids all iBGP routers needing to be in a full mesh scenario with
+all other iBGP routers. This also avoids routing loops and blackholing inside an Autonomous System (AS). 
 
 In order to prevent routing loops inside an AS, iBGP routes cannot be re-advertised to iBGP peers. This is because of a fundamental mechanism of iBGP in which the next-hop
 attribute is not changed when advertising to other iBGP peers. BGP is only deisgned to carry policy and reachability data, not forwarding paths. In order to work around this
-and avoid a full mesh scenario which would cause all sorts of issues, route reflectors are used.
+and route reflectors are used. 
+
+Now let's dive into the lab.
+
+NOTE: If every BGP speaker needed to be full meshed it would require N(N-1)/2 connections, where N is the number of routers. If there are 5 routers, then
+there would be 10 active iBGP sessions. 
+
+== Topoloy
+
+NOTE: All routers have already been configured with IP addresses on the appropriate interfaces.
+
+=== 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
