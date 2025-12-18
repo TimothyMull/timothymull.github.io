@@ -6,8 +6,8 @@ where I initially learned about BGP. It was easier to copy the topology than cre
 == The Need for Route Reflectors
 
 A Route Reflector (RR) is used in BGP to reflect/retransmit routes learned from one iBGP peer to other iBGP peers. This is used to as a "workaround" to the inherent functionality
-of BGP in which iBGP routers cannot transmit routes learned from one iBGP peer to other iBGP peers. Thus, this avoids all iBGP routers needing to be in a full mesh scenario with
-all other iBGP routers. This also avoids routing loops and blackholing inside an Autonomous System (AS). 
+of BGP in which iBGP routers cannot transmit routes learned from one iBGP peer to other iBGP peers. This avoids routing loops and blackholing inside an Autonomous System (AS). 
+It also avoids all iBGP routers needing to be in a full mesh scenario with all other iBGP routers. 
 
 In order to prevent routing loops inside an AS, iBGP routes cannot be re-advertised to iBGP peers. This is because of a fundamental mechanism of iBGP in which the next-hop
 attribute is not changed when advertising to other iBGP peers. BGP is only deisgned to carry policy and reachability data, not forwarding paths. In order to work around this
@@ -31,20 +31,38 @@ as that relies on existing TCP connections between the routers. To enable OSPF t
 
 In order to establish OSPF adjacency between the routers the commands will be:
 
-R1
-* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
-* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
+*R1:*
 
-R2
+* `R1(config)#network 192.168.1.0 0.0.0.255 area 0`
+
+The `network` command is used by routing protocols to advertrise the network to adjacent routers, but only if it is in the routing table.
+In the case of OSPF, this command defines the scope for which interfaces are in which area. 
+
+* `R1(config)#network 192.168.2.0 0.0.0.255 area 0`
+
+You may notice that I am configuring each adjacency using a /32 mask instead of defining the entire network.
+This is because these are point-to-point links and their is no need to define the entire range. However, there are use cases where
+defining a mask smaller than a /32 is useful such as IP summarization.
+
+*R2:*
+
 * `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
+
+As you configure each adjacency you will see Syslog messages notifying you of the adjacency change from a Loading state to a Full state.
+A Full state occurs when both adjacent routers have fully synchronized their Link-State Databases (LSDBs). 
+
 * `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
 
-R3
+I am omitting the rest of the images for brevity sake as there is no important information shown.
+
+*R3:*
+
 * `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
 * `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
 * `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
 
-R4
+*R4:*
+
 * `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
 
 === Step 2: Verify OSPF Adjacencies and Connectivity
