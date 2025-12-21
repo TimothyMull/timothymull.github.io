@@ -35,41 +35,48 @@ In order to establish OSPF adjacency between the routers the commands will be:
 
 * `R1(config)#network 192.168.1.0 0.0.0.255 area 0`
 
-The `network` command is used by routing protocols to advertrise the network to adjacent routers, but only if it is in the routing table.
+The `network` command is used by routing protocols to advertise the network to adjacent routers, but only if it is in the routing table.
+OSPF will look for interfaces which fall under the specified range and advertise the network to adjacent routers. 
 In the case of OSPF, this command defines the scope for which interfaces are in which area. 
 
 * `R1(config)#network 192.168.2.0 0.0.0.255 area 0`
 
-You may notice that I am configuring each adjacency using a /32 mask instead of defining the entire network.
-This is because these are point-to-point links and their is no need to define the entire range. However, there are use cases where
-defining a mask smaller than a /32 is useful such as IP summarization.
 
 *R2:*
 
-* `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R2(config)#network 192.168.2.0 0.0.0.255 area 0`
 
 As you configure each adjacency you will see Syslog messages notifying you of the adjacency change from a Loading state to a Full state.
 A Full state occurs when both adjacent routers have fully synchronized their Link-State Databases (LSDBs). 
 
-* `R2(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R2(config)#network 192.168.3.0 0.0.0.255 area 0`
 
 I am omitting the rest of the images for brevity sake as there is no important information shown.
 
 *R3:*
 
-* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
-* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
-* `R3(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R3(config)#network 192.168.1.0 0.0.0.255 area 0`
+* `R3(config)#network 192.168.3.0 0.0.0.255 area 0`
+* `R3(config)#network 10.0.0.0 0.0.0.255 area 0`
 
 *R4:*
 
-* `R1(config)#network 192.168.0.1 0.0.0.255 area 0`
+* `R1(config)#network 10.0.0.0 0.0.0.255 area 0`
 
 === Step 2: Verify OSPF Adjacencies and Connectivity
 
-=== Step 3: Configure BGP for AS 65001 and AS 65003 ( or 65002)
+We can quickly verify that the routers are now configured with each other as adjacenies by using the `sh ip ospf rib` command.
+This will show the OSPF router-id, as well as routes inside the RIB (Routing Information Base) which is a database for OSPF routes.
+This also shows what routes are placed in the global IP route table and which ones are not.
 
-For R1, R2, R3, and R4 configure the command:
+* `R1(config)#sh ip ospf rib`
+
+We can tell that R1 has reachability for its neighbors as well as for the 10.0.0.0/24 network. We have full reachability within Area 0.
+
+=== Step 3: Configure BGP for AS 65001 and AS 65003
+
+Now we can configure BGP and the AS numbers to begin work on setting up the Route Reflectors. 
+R1, R2, R3, and R4 will be in AS 65001 and you can configure the command:
 
 * `Rx(config)#router bgp 65001`
 
@@ -80,28 +87,30 @@ For R5 the command would be:
 Now we'll configure the iBGP sessions for AS 65001. The commands will be:
 
 R1
-* `R1(router-config)#neighbor 192.168.0.3 remote-as 65001`
-* `R1(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R1(router-config)#neighbor 192.168.2.4 remote-as 65001`
+* `R1(router-config)#neighbor 192.168.1.2 remote-as 65001`
 
 R2
-* `R2(router-config)#neighbor 192.168.0.3 remote-as 65001`
-* `R2(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R2(router-config)#neighbor 192.168.2.3 remote-as 65001`
+* `R2(router-config)#neighbor 192.168.3.6 remote-as 65001`
+
+As the adjacencies start to form you will begin to see Syslog messages notifying you that the BGP adjaceny is now up. 
 
 R3
-* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
-* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
-* `R3(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R3(router-config)#neighbor 192.168.1.1 remote-as 65001`
+* `R3(router-config)#neighbor 192.168.3.5 remote-as 65001`
+* `R3(router-config)#neighbor 10.0.0.8 remote-as 65001`
 
 R4
-* `R4(router-config)#neighbor 192.168.0.3 remote-as 65001`
+* `R4(router-config)#neighbor 10.0.0.7 remote-as 65001`
 
 Now we'll configure the eBGP session between R4 and R5. The command will be:
 
 R4
-* `R1(router-config)#neighbor 192.168.0.3 remote-as 65003`
+* `R4(router-config)#neighbor 20.0.0.10 remote-as 65003`
 
 R5
-* `R1(router-config)#neighbor 192.168.0.3 remote-as 65003`
+* `R5(router-config)#neighbor 20.0.0.9 remote-as 65001`
 
 === Step 4:Verify the BGP Adjacencies
 
