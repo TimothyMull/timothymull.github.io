@@ -114,7 +114,14 @@ R5
 
 === Step 4:Verify the BGP Adjacencies
 
+We can verify BGP adjacency using show commands. One useful command for verifying connectivity with purported adjacencies is:
 
+* `R1#sh ip bgp | i BGP neigh|BGP state`
+
+This show command piped with a regex statement for displaying the BGP neighbors and their current state can be used at a glance.
+This command should display the neighbor's router-id, the AS it is in, and the state as "Established".
+
+Another command that can be used is the `sh ip bgp` command. This will only work if BGP is advertising prefixes across the network.
 
 
 
