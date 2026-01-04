@@ -67,9 +67,9 @@ In order to establish OSPF adjacency between the routers the commands will be:
 ifdef::env-github[]
 ++++
 <p align="center">
-  <img width="800" height="1000" src="Pictures/Network_R1.jpg">
+  <img width="600" height="800" src="Pictures/Network_R1.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -91,9 +91,9 @@ In the case of OSPF, this command defines the scope for which interfaces are in 
 ifdef::env-github[]
 ++++
 <p align="center">
-  <img width="800" height="1000" src="Pictures/Network_R2.jpg">
+  <img width="1000" height="1200" src="Pictures/Network_R2.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -131,9 +131,9 @@ This also shows what routes are placed in the global IP route table and which on
 ifdef::env-github[]
 ++++
 <p align="center">
-  <img width="800" height="1000" src="Pictures/OSPFRIB_R1.jpg">
+  <img width="600" height="800" src="Pictures/OSPFRIB_R1.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -174,7 +174,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/BGPNeigh_R2.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -218,7 +218,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/ShIPBGPSumm_R3.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -236,7 +236,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/ShIPBGPPipe_R1.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -262,7 +262,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/OSPF_Redis_R5.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -289,9 +289,9 @@ In order to configure the RR you must actually configure the client from the rou
 ifdef::env-github[]
 ++++
 <p align="center">
-  <img width="800" height="1000" src="Pictures/RRClient_R3.jpg">
+  <img width="1300" height="1500" src="Pictures/RRClient_R3.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -310,7 +310,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/ShBGPRRClient.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -326,7 +326,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/RRClientNo40_R1.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
@@ -345,7 +345,7 @@ ifdef::env-github[]
 <p align="center">
   <img width="800" height="1000" src="Pictures/RRClientYes40_R1.jpg">
 </p>
-<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+<h4 align="center"></h4>
 ++++
 endif::[]
 
