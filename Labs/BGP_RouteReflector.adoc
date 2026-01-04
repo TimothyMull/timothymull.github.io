@@ -171,7 +171,10 @@ In order to fix this we can perform the following command:
 
 
 Now, back on R1 we can see that there is a route towards 40.0.0.4/32 with a next-hop of 10.0.0.8. Again, ignore the OSPF routes, I will address how to prevent that in a subsequent posting.
-Since R3 now knows how to reach 40.0.0.4/32 because the NEXT_HOP attribute was changed to 10.0.0.8 instead of 20.0.0.10
+Since R3 now knows how to reach 40.0.0.4/32 because the NEXT_HOP attribute was changed to 10.0.0.8 instead of 20.0.0.10, R3 places 40.0.0.4/32 as a best path in the routing table.
+Because 40.0.0.4/32 is now a best path, R3 will reflect the route to it's clients. 
+
+This concludes the lab.
 
 
 
