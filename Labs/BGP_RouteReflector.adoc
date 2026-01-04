@@ -20,6 +20,20 @@ there would be 10 active iBGP sessions.
 
 == Topoloy
 
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/Topology.jpg">
+</p>
+<h4 align="center">Figure 1. Route Reflector Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/Topology.jpg[align=center]
+endif::[]
+
 NOTE: All routers have already been configured with IP addresses on the appropriate interfaces.
 
 '''
@@ -30,11 +44,39 @@ as that relies on existing TCP connections between the routers. To enable OSPF t
 
 * `Rx(config)#router ospf 1`
 
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/RouterOSPF.jpg">
+</p>
+<h4 align="center"></h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/RouterOSPF.jpg[align=center]
+endif::[]
+
 In order to establish OSPF adjacency between the routers the commands will be:
 
 *R1:*
 
 * `R1(config)#network 192.168.1.0 0.0.0.255 area 0`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/Network_R1.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/Network_R1.jpg[align=center]
+endif::[]
 
 The `network` command is used by routing protocols to advertise the network to adjacent routers, but only if it is in the routing table.
 OSPF will look for interfaces which fall under the specified range and advertise the network to adjacent routers. 
@@ -42,17 +84,30 @@ In the case of OSPF, this command defines the scope for which interfaces are in 
 
 * `R1(config)#network 192.168.2.0 0.0.0.255 area 0`
 
-
 *R2:*
 
 * `R2(config)#network 192.168.2.0 0.0.0.255 area 0`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/Network_R2.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/Network_R2.jpg[align=center]
+endif::[]
 
 As you configure each adjacency you will see Syslog messages notifying you of the adjacency change from a Loading state to a Full state.
 A Full state occurs when both adjacent routers have fully synchronized their Link-State Databases (LSDBs). 
 
 * `R2(config)#network 192.168.3.0 0.0.0.255 area 0`
 
-I am omitting the rest of the images for brevity sake as there is no important information shown.
+I am omitting the rest of the images for this section for brevity sake as there is no important information shown.
 
 *R3:*
 
@@ -73,7 +128,22 @@ This also shows what routes are placed in the global IP route table and which on
 
 * `R1(config)#sh ip ospf rib`
 
-We can tell that R1 has reachability for its neighbors as well as for the 10.0.0.0/24 network. We have full reachability within Area 0.
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/OSPFRIB_R1.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/OSPFRIB_R1.jpg[align=center]
+endif::[]
+
+We can tell that R1 has reachability for its neighbors as well as for the 10.0.0.0/24 network. We have full reachability within Area 0. 192.168.1.0/24 and 192.168.2.0/24 are not installed in the global RIB because
+they are directly connected to R1.
 
 '''
 === Step 3: Configure BGP for AS 65001 and AS 65003
@@ -98,6 +168,21 @@ Now we'll configure the iBGP sessions for AS 65001. The commands will be:
 
 * `R2(router-config)#neighbor 192.168.2.3 remote-as 65001`
 * `R2(router-config)#neighbor 192.168.3.6 remote-as 65001`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/BGPNeigh_R2.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/BGPNeigh_R2.jpg[align=center]
+endif::[]
+
 
 As the adjacencies start to form you will begin to see Syslog messages notifying you that the BGP adjaceny is now up. 
 
@@ -124,9 +209,41 @@ Now we'll configure the eBGP session between R4 and R5. The command will be:
 '''
 === Step 4:Verify the BGP Adjacencies
 
-We can verify BGP adjacency using show commands. One useful command for verifying connectivity with adjacencies is:
+We can easily verify whether BGP peering has been established on neighboring routers with the following command:
+
+* `R3#sh ip bgp summ`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/ShIPBGPSumm_R3.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/ShIPBGPSumm_R3.jpg[align=center]
+endif::[]
+
+We can also verify BGP adjacency using another show command. A more complex command for verifying neighboring adjacencies is:
 
 * `R1#sh ip bgp | i BGP neigh|BGP state`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/ShIPBGPPipe_R1.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/ShIPBGPPipe_R1.jpg[align=center]
+endif::[]
 
 This show command piped with a regex statement for displaying the BGP neighbors and their current state can be used at a glance.
 This command should display the neighbor's router-id, the AS it is in, and the state as "Established".
@@ -140,7 +257,21 @@ were OSPF external routes, those would not be redistributed into BGP without ext
 * `R5(config)#router bgp 65001`
 * `R5(config-router)#redistribute ospf 1`
 
-Now let's check the BGP table to see if the routes were redistributed. We're going to ignore the potential prolems this can cause within AS 65001 such as routing loops, blackholes, and lost attributes.
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/OSPF_Redis_R5.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/OSPF_Redis_R5.jpg[align=center]
+endif::[]
+
+Now let's check the BGP table on R4 to see if the routes were redistributed. We're going to ignore the potential prolems this can cause within AS 65001 such as routing loops, blackholes, and lost attributes.
 All we care about now is that AS 65003 has reachable routes via eBGP. I've also set a loopback address on R5 and advertised it into BGP so that AS 65001 has a route learned from AS 65003.
 
 '''
@@ -152,23 +283,76 @@ Route Reflector is to reflect routes learned via eBGP to Route Reflector Clients
 In order to configure the RR you must actually configure the client from the router you want to become the RR. Since R3 will be the RR we'll start there:
 
 * `R3(config)#router bgp 65001`
-* `R3(config-router)#neighbor 192.168.1.1 route-reflector client"
-* `R3(config-router)#neighbor 192.168.3.5 route-reflector client"
+* `R3(config-router)#neighbor 192.168.1.1 route-reflector client`
+* `R3(config-router)#neighbor 192.168.3.5 route-reflector client`
 
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/RRClient_R3.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
 
+ifndef::env-github[]
+[]
+image::Pictures/RRClient_R3.jpg[align=center]
+endif::[]
 
 Both R1 and R2 are now configured as Route Reflector Clients while R3 is considered the Route Reflector itself. While the following images shows the neighbor connection
 to R4 we can rule it out as not being a client because it is not followed by "Route-Reflector Client".
 
-* `R3(config)#sh ip bgp neigh | i ID|Route-Reflector Client"
+* `R3(config)#sh ip bgp neigh | i ID|Route-Reflector Client`
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/ShBGPRRClient.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/ShBGPRRClient.jpg[align=center]
+endif::[]
 
 Now you may think that the job here is finished, but you must remember that reflected routes' NEXT_HOP attribute remains unchanged. That is why R1 and R2 still do not have the 40.0.0.4/32 prefix in their BGP table.
+
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/RRClientNo40_R1.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
+
+ifndef::env-github[]
+[]
+image::Pictures/RRClientNo40_R1.jpg[align=center]
+endif::[]
+
 In order to fix this we can perform the following command:
 
 * `R4(config)#router bgp 65001`
 * `R4(config-router)#neighbor 10.0.0.7 next-hop-self`
 
+ifdef::env-github[]
+++++
+<p align="center">
+  <img width="800" height="1000" src="Pictures/RRClientYes40_R1.jpg">
+</p>
+<h4 align="center">Figure 1. EtherChannel EIF Lab Toplogy</h4>
+++++
+endif::[]
 
+ifndef::env-github[]
+[]
+image::Pictures/RRClientYes40_R1.jpg[align=center]
+endif::[]
 
 Now, back on R1 we can see that there is a route towards 40.0.0.4/32 with a next-hop of 10.0.0.8. Again, ignore the OSPF routes, I will address how to prevent that in a subsequent posting.
 Since R3 now knows how to reach 40.0.0.4/32 because the NEXT_HOP attribute was changed to 10.0.0.8 instead of 20.0.0.10, R3 places 40.0.0.4/32 as a best path in the routing table.
